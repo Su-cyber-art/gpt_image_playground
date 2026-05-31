@@ -23,14 +23,14 @@ export default function SearchBar() {
   }
 
   return (
-    <div data-no-drag-select className="mt-6 mb-4 flex gap-3">
+    <div data-no-drag-select className="mb-5 mt-4 flex gap-3 rounded-[1.75rem] border p-2 backdrop-blur-2xl studio-glass">
       <div className="flex gap-2 flex-shrink-0 z-20">
         <button
           onClick={handleFavoriteClick}
           className={`p-2.5 rounded-xl border transition-all ${
             filterFavorite
               ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-500/10 text-yellow-500'
-              : 'border-gray-200 dark:border-white/[0.08] bg-white dark:bg-gray-900 text-gray-400 hover:bg-gray-50 dark:hover:bg-white/[0.06]'
+              : 'border-slate-900/5 bg-white/60 text-slate-500 hover:bg-white/80 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400 dark:hover:bg-white/[0.08]'
           }`}
           title={activeFavoriteCollectionId ? '返回收藏夹' : filterFavorite ? '退出收藏夹视图' : '收藏夹'}
         >
@@ -39,7 +39,7 @@ export default function SearchBar() {
         {inCollectionOverview && (
           <button
             onClick={openManageCollectionsModal}
-            className="p-2.5 rounded-xl border border-gray-200 dark:border-white/[0.08] bg-white dark:bg-gray-900 text-gray-400 hover:bg-gray-50 dark:hover:bg-white/[0.06] transition-all"
+            className="p-2.5 rounded-xl border border-slate-900/5 bg-white/60 text-slate-500 hover:bg-white/80 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-400 dark:hover:bg-white/[0.08] transition-all"
             title="管理收藏夹"
           >
             <CollectionManageIcon className="w-5 h-5" />
@@ -56,7 +56,7 @@ export default function SearchBar() {
                 { label: '生成中', value: 'running' },
                 { label: '失败', value: 'error' },
               ]}
-              className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/[0.08] bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-white/[0.06] text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition"
+              className="px-3 py-2.5 rounded-xl border border-slate-900/5 bg-white/60 text-sm transition hover:bg-white/80 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/25 dark:border-white/[0.08] dark:bg-white/[0.04] dark:hover:bg-white/[0.08]"
             />
           </div>
         )}
@@ -80,7 +80,7 @@ export default function SearchBar() {
           onChange={(e) => setSearchQuery(e.target.value)}
           type="text"
           placeholder={inCollectionOverview ? '搜索收藏夹名称...' : '搜索提示词、参数...'}
-          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/[0.08] bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition"
+          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-900/5 bg-white/60 text-sm text-slate-900 placeholder:text-slate-400 transition hover:bg-white/80 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/25 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white dark:placeholder:text-slate-500 dark:hover:bg-white/[0.08]"
         />
       </div>
     </div>

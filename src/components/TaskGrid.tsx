@@ -259,26 +259,38 @@ export default function TaskGrid() {
 
   if (!filteredTasks.length) {
     return (
-      <div className="text-center py-20 text-gray-400 dark:text-gray-500">
+      <div className="py-16 sm:py-24">
         {searchQuery || filterFavorite ? (
-          <p className="text-sm">没有找到匹配的任务</p>
+          <div className="mx-auto max-w-md rounded-[2rem] border p-10 text-center backdrop-blur-2xl studio-glass">
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">没有找到匹配的任务</p>
+          </div>
         ) : (
-          <>
-            <svg
-              className="w-16 h-16 mx-auto mb-4 text-gray-200 dark:text-gray-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <p className="text-sm">输入提示词开始生成图片</p>
-          </>
+          <div className="mx-auto max-w-2xl overflow-hidden rounded-[2rem] border p-8 text-center backdrop-blur-2xl studio-glass sm:p-12">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.75rem] studio-primary-gradient shadow-[0_18px_60px_rgba(124,92,255,0.35)]">
+              <svg
+                className="h-10 w-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-black tracking-tight text-slate-950 dark:text-white">Describe an image to begin</h3>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
+              在下方输入提示词，上传参考图，开始生成你的第一张作品。
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+              <span className="rounded-full border border-slate-900/5 bg-white/60 px-3 py-1.5 dark:border-white/[0.08] dark:bg-white/[0.04]">cinematic portrait</span>
+              <span className="rounded-full border border-slate-900/5 bg-white/60 px-3 py-1.5 dark:border-white/[0.08] dark:bg-white/[0.04]">product render</span>
+              <span className="rounded-full border border-slate-900/5 bg-white/60 px-3 py-1.5 dark:border-white/[0.08] dark:bg-white/[0.04]">anime concept art</span>
+            </div>
+          </div>
         )}
       </div>
     )
@@ -290,7 +302,7 @@ export default function TaskGrid() {
       data-task-grid-root
       className="relative min-h-[50vh]"
     >
-      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-10">
+      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10">
         {filteredTasks.map((task) => (
           <div key={task.id} className="task-card-wrapper" data-task-id={task.id}>
             <TaskCard

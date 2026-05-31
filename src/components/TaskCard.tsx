@@ -322,10 +322,10 @@ export default function TaskCard({
   const isInterrupted = task.status === 'error' && task.error === '已停止生成。'
 
   return (
-    <div className="relative rounded-xl">
+    <div className="relative rounded-[1.5rem]">
       {/* 侧滑底图 */}
       <div
-        className={`absolute inset-0 rounded-xl flex items-center transition-opacity duration-200 pointer-events-none ${
+        className={`absolute inset-0 rounded-[1.5rem] flex items-center transition-opacity duration-200 pointer-events-none ${
           isSwiping || swipeDirection !== 0 || swipeActionActive ? 'opacity-100' : 'opacity-0'
         } ${swipeBgClass} ${
           swipeDirection > 0 ? 'justify-start pl-6' : 'justify-end pr-6'
@@ -342,16 +342,16 @@ export default function TaskCard({
 
       <div
         ref={cardRef}
-        className={`relative bg-white dark:bg-gray-900 rounded-xl border overflow-hidden cursor-pointer touch-pan-y will-change-transform duration-200 hover:shadow-lg dark:hover:bg-gray-800/80 ${
-          isSwiping ? '!bg-white dark:!bg-gray-900' : ''
+        className={`relative overflow-hidden rounded-[1.5rem] border bg-white/72 shadow-[0_18px_55px_rgba(15,23,42,0.10)] backdrop-blur-xl cursor-pointer touch-pan-y will-change-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.16)] dark:bg-[#0f1422]/78 dark:shadow-[0_22px_70px_rgba(0,0,0,0.32)] dark:hover:bg-[#151b2c]/85 ${
+          isSwiping ? '!bg-white dark:!bg-[#0f1422]' : ''
         } ${
           !isSwiping ? 'transition-[box-shadow,border-color,background-color,transform]' : 'transition-[box-shadow,border-color,background-color]'
         } ${
           task.status === 'running'
-            ? 'border-blue-400 generating'
+            ? 'border-violet-400/70 generating studio-focus-ring'
             : isSelected
-            ? 'border-blue-500 shadow-md ring-2 ring-blue-500/50'
-            : 'border-gray-200 dark:border-white/[0.08] hover:border-gray-300 dark:hover:border-white/[0.18]'
+            ? 'border-violet-400/80 shadow-[0_0_0_2px_rgba(124,92,255,0.28),0_22px_70px_rgba(124,92,255,0.20)]'
+            : 'border-slate-900/5 hover:border-violet-400/40 dark:border-white/[0.08] dark:hover:border-violet-300/30'
         }`}
         onClick={(e) => {
           if (Date.now() < suppressClickUntilRef.current) {

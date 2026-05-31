@@ -1,22 +1,23 @@
 @import url('https://fontsapi.zeoseven.com/442/main/result.css');
 @import url('https://cdn.jsdelivr.net/npm/@lobehub/webfont-harmony-sans-sc@1.0.0/css/index.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 240 10% 10%;
-  --muted: 240 5% 96%;
-  --muted-foreground: 240 4% 46%;
-  --border: 240 6% 90%;
-  --input: 240 6% 90%;
-  --primary: 221 83% 53%;
+  --background: 220 43% 98%;
+  --foreground: 222 47% 11%;
+  --muted: 225 32% 94%;
+  --muted-foreground: 224 12% 45%;
+  --border: 224 24% 88%;
+  --input: 224 24% 88%;
+  --primary: 248 100% 68%;
   --primary-foreground: 0 0% 100%;
-  --sidebar: 240 5% 96%;
-  --sidebar-foreground: 240 10% 10%;
-  --font-ui-sans: 'HarmonyOS Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --sidebar: 225 32% 94%;
+  --sidebar-foreground: 222 47% 11%;
+  --font-ui-sans: 'Inter', 'HarmonyOS Sans SC', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-mono: 'Maple Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
   --safe-area-top: env(safe-area-inset-top, 0px);
   --safe-area-right: env(safe-area-inset-right, 0px);
@@ -31,6 +32,12 @@ html {
 
 body {
   padding: 0;
+  min-height: 100vh;
+  color: hsl(var(--foreground));
+  background:
+    radial-gradient(circle at 18% -10%, rgba(124, 92, 255, 0.22), transparent 34rem),
+    radial-gradient(circle at 82% 6%, rgba(56, 189, 248, 0.14), transparent 32rem),
+    linear-gradient(180deg, #f8fbff 0%, #eef3fb 48%, #f8fafc 100%);
   -webkit-user-select: none;
   user-select: none;
 }
@@ -71,20 +78,27 @@ body.drag-selecting * {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: 240 10% 4%;
-    --foreground: 0 0% 98%;
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-    --border: 240 4% 22%;
-    --input: 240 4% 22%;
-    --primary: 217 91% 60%;
+    --background: 225 44% 5%;
+    --foreground: 210 40% 98%;
+    --muted: 224 28% 14%;
+    --muted-foreground: 222 16% 68%;
+    --border: 224 18% 22%;
+    --input: 224 18% 22%;
+    --primary: 249 100% 68%;
     --primary-foreground: 0 0% 100%;
-    --sidebar: 240 5% 12%;
-    --sidebar-foreground: 0 0% 98%;
+    --sidebar: 224 32% 10%;
+    --sidebar-foreground: 210 40% 98%;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 18% -10%, rgba(124, 92, 255, 0.24), transparent 34rem),
+      radial-gradient(circle at 82% 6%, rgba(56, 189, 248, 0.14), transparent 32rem),
+      linear-gradient(180deg, #070a12 0%, #0b1020 44%, #070a12 100%);
   }
 
   * {
-    scrollbar-color: #3f3f46 transparent;
+    scrollbar-color: rgba(148, 163, 184, 0.32) transparent;
   }
 }
 
@@ -485,4 +499,36 @@ input[type="number"] {
 .ios-rounded-scroll-fix {
   isolation: isolate;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+
+@layer utilities {
+  .studio-glass {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(148, 163, 184, 0.28);
+    box-shadow: 0 18px 60px rgba(15, 23, 42, 0.10);
+  }
+
+  .studio-gradient-text {
+    background: linear-gradient(135deg, #7c5cff 0%, #38bdf8 52%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .studio-primary-gradient {
+    background: linear-gradient(135deg, #7c5cff 0%, #38bdf8 100%);
+  }
+
+  .studio-focus-ring {
+    box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.35), 0 0 32px rgba(124, 92, 255, 0.18);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .studio-glass {
+    background: rgba(15, 20, 34, 0.72);
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+  }
 }

@@ -81,6 +81,20 @@ export default function App() {
       ) : (
         <main data-home-main data-drag-select-surface className="pb-48">
           <div className="safe-area-x max-w-7xl mx-auto">
+            <section className="pt-3 pb-2 sm:pt-8 sm:pb-4">
+              <div className="max-w-3xl">
+                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/60 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm backdrop-blur dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-slate-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_14px_rgba(56,189,248,0.9)]" />
+                  AI Image Creation Workspace
+                </div>
+                <h2 className="text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">
+                  Turn prompts into <span className="studio-gradient-text">visual worlds</span>.
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">
+                  一个更像创作工作台的图像生成界面：让画面成为主角，参数退到幕后。
+                </p>
+              </div>
+            </section>
             <SearchBar />
             {filterFavorite && !activeFavoriteCollectionId ? <FavoriteCollectionsView /> : <TaskGrid />}
           </div>

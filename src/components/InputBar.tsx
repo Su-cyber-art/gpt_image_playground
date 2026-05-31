@@ -2149,7 +2149,7 @@ export default function InputBar() {
       <div data-input-bar className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-4xl px-3 sm:px-4 transition-all duration-300">
         {showFavoriteCollectionBatchBar && (
           <div className="flex justify-center mb-3">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-lg rounded-full flex items-center p-1 border border-gray-200/50 dark:border-white/10 pointer-events-auto">
+            <div className="rounded-full border border-slate-900/5 bg-white/80 p-1 shadow-[0_16px_50px_rgba(15,23,42,0.16)] backdrop-blur-2xl pointer-events-auto dark:border-white/[0.08] dark:bg-[#0f1422]/85 dark:shadow-[0_18px_70px_rgba(0,0,0,0.35)] flex items-center">
               <BatchActionButton
                 onClick={clearFavoriteCollectionSelection}
                 className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -2205,7 +2205,7 @@ export default function InputBar() {
         )}
         {showTaskBatchBar && (
           <div className="flex justify-center mb-3">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-lg rounded-full flex items-center p-1 border border-gray-200/50 dark:border-white/10 pointer-events-auto">
+            <div className="rounded-full border border-slate-900/5 bg-white/80 p-1 shadow-[0_16px_50px_rgba(15,23,42,0.16)] backdrop-blur-2xl pointer-events-auto dark:border-white/[0.08] dark:bg-[#0f1422]/85 dark:shadow-[0_18px_70px_rgba(0,0,0,0.35)] flex items-center">
               <BatchActionButton
                 onClick={clearSelection}
                 className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -2275,7 +2275,7 @@ export default function InputBar() {
             </div>
           </div>
         )}
-        <div ref={cardRef} className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-2xl border border-white/50 dark:border-white/[0.08] shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)] rounded-2xl sm:rounded-3xl p-3 sm:p-4 ring-1 ring-black/5 dark:ring-white/10">
+        <div ref={cardRef} className="rounded-[1.75rem] border p-3 backdrop-blur-2xl ring-1 ring-white/40 studio-glass sm:rounded-[2rem] sm:p-4 dark:ring-white/[0.06]">
           {/* 移动端拖动条 */}
           <div
             ref={handleRef}
@@ -2385,7 +2385,7 @@ export default function InputBar() {
                 syncMentionTagSelection(el)
               }}
               aria-label={promptPlaceholder}
-              className="col-start-1 row-start-1 min-h-[42px] w-full overflow-hidden ios-rounded-scroll-fix whitespace-pre-wrap break-words rounded-2xl border border-gray-200/60 bg-white/50 pl-4 pr-10 py-3 text-sm leading-relaxed shadow-sm outline-none transition-[border-color,box-shadow] duration-200 focus:ring-1 focus:ring-blue-300/40 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-gray-100 dark:focus:ring-blue-500/30"
+              className="col-start-1 row-start-1 min-h-[42px] w-full overflow-hidden ios-rounded-scroll-fix whitespace-pre-wrap break-words rounded-2xl border border-slate-900/5 bg-white/60 pl-4 pr-10 py-3 text-sm leading-relaxed text-slate-900 shadow-inner outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-violet-400 focus:bg-white/80 focus:ring-2 focus:ring-violet-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white dark:focus:border-violet-400/70 dark:focus:bg-white/[0.06] dark:focus:ring-violet-500/20"
             />
             {prompt.length === 0 && (
               <div className={`prompt-placeholder col-start-1 row-start-1 pointer-events-none pl-4 pr-10 py-3 text-sm leading-relaxed text-gray-400 dark:text-gray-500${
@@ -2426,7 +2426,7 @@ export default function InputBar() {
                     className={`p-2.5 rounded-xl transition-all shadow-sm ${
                       atImageLimit
                         ? 'bg-gray-200 dark:bg-white/[0.04] text-gray-300 dark:text-gray-500 cursor-not-allowed'
-                        : 'bg-gray-200 dark:bg-white/[0.06] hover:bg-gray-300 dark:hover:bg-white/[0.1] text-gray-500 dark:text-gray-300 hover:shadow'
+                        : 'border border-slate-900/5 bg-white/60 text-slate-500 hover:bg-white/80 hover:text-slate-900 hover:shadow dark:border-white/[0.08] dark:bg-white/[0.05] dark:text-slate-300 dark:hover:bg-white/[0.1] dark:hover:text-white'
                     }`}
                     aria-label={uploadImageTooltipText}
                   >
@@ -2449,7 +2449,7 @@ export default function InputBar() {
                         ? 'bg-red-500 text-white hover:bg-red-600'
                         : !hasSubmitApiConfig
                         ? 'bg-gray-300 dark:bg-white/[0.06] text-white cursor-pointer'
-                        : 'bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
+                        : 'studio-primary-gradient text-white shadow-[0_12px_35px_rgba(124,92,255,0.32)] hover:shadow-[0_16px_45px_rgba(56,189,248,0.28)] disabled:bg-gray-300 disabled:shadow-none dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
                     }`}
                     aria-label={submitButtonAriaLabel}
                   >
@@ -2557,7 +2557,7 @@ export default function InputBar() {
                         ? 'bg-red-500 text-white hover:bg-red-600'
                         : !hasSubmitApiConfig
                         ? 'bg-gray-300 dark:bg-white/[0.06] text-white cursor-pointer'
-                        : 'bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
+                        : 'studio-primary-gradient text-white shadow-[0_12px_35px_rgba(124,92,255,0.32)] hover:shadow-[0_16px_45px_rgba(56,189,248,0.28)] disabled:bg-gray-300 disabled:shadow-none dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
                     }`}
                   >
                     {activeAgentIsRunning ? (
