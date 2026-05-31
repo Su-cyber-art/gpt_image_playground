@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState, useEffect } from 'react'
-import { ALL_FAVORITES_COLLECTION_ID, getTaskFavoriteCollectionIds, useStore, reuseConfig, editOutputs, removeTask } from '../store'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ALL_FAVORITES_COLLECTION_ID, editOutputs, getTaskFavoriteCollectionIds, removeTask, reuseConfig, useStore } from '../store'
 import TaskCard from './TaskCard'
 
 export default function TaskGrid() {
@@ -22,7 +22,6 @@ export default function TaskGrid() {
   const isDragging = useRef(false)
   const dragScrollIntervalRef = useRef<number | null>(null)
   const dragScrollDirectionRef = useRef<-1 | 1 | null>(null)
-  const lastToastTimeRef = useRef(0)
   const suppressClickUntil = useRef(0)
   const startedOnCard = useRef(false)
   const startedWithCtrl = useRef(false)
@@ -32,26 +31,28 @@ export default function TaskGrid() {
   const filteredTasks = useMemo(() => {
     const sorted = [...tasks].sort((a, b) => b.createdAt - a.createdAt)
     const q = searchQuery.trim().toLowerCase()
-    
-    return sorted.filter((t) => {
+
+    return sorted.filter((task) => {
       if (filterFavorite) {
-        if (!t.isFavorite) return false
-        if (activeFavoriteCollectionId && activeFavoriteCollectionId !== ALL_FAVORITES_COLLECTION_ID && !getTaskFavoriteCollectionIds(t).includes(activeFavoriteCollectionId)) return false
+        if (!task.isFavorite) return false
+        if (
+          activeFavoriteCollectionId &&
+          activeFavoriteCollectionId !== ALL_FAVORITES_COLLECTION_ID &&
+          !getTaskFavoriteCollectionIds(task).includes(activeFavoriteCollectionId)
+        ) {
+          return false
+        }
       }
-      const matchStatus = filterStatus === 'all' || t.status === filterStatus
-      if (!matchStatus) return false
-      
+      if (filterStatus !== 'all' && task.status !== filterStatus) return false
       if (!q) return true
-      const prompt = (t.prompt || '').toLowerCase()
-      const paramStr = JSON.stringify(t.params).toLowerCase()
-      return prompt.includes(q) || paramStr.includes(q)
+      return (task.prompt || '').toLowerCase().includes(q) || JSON.stringify(task.params).toLowerCase().includes(q)
     })
-  }, [tasks, searchQuery, filterStatus, filterFavorite, activeFavoriteCollectionId])
+  }, [activeFavoriteCollectionId, filterFavorite, filterStatus, searchQuery, tasks])
 
   const handleDelete = (task: typeof tasks[0]) => {
     setConfirmDialog({
       title: '删除任务',
-      message: '确定要删除这个任务吗？关联的图片资源也会被清理（如果没有其他任务引用）。',
+      message: '确定要删除这个任务吗？关联的图像资源也会被清理。',
       action: () => removeTask(task),
     })
   }
@@ -63,11 +64,9 @@ export default function TaskGrid() {
 
   const beginSelection = (target: HTMLElement, clientX: number, clientY: number, isCtrl: boolean) => {
     const point = getPagePoint(clientX, clientY)
-
     startedOnCard.current = Boolean(target.closest('.task-card-wrapper'))
     startedWithCtrl.current = isCtrl
     initialSelection.current = [...useStore.getState().selectedTaskIds]
-
     isDragging.current = true
     hasDragged.current = false
     dragStart.current = point
@@ -90,12 +89,10 @@ export default function TaskGrid() {
     const maxX = Math.max(start.pageX, pageX)
     const minY = Math.min(start.pageY, pageY)
     const maxY = Math.max(start.pageY, pageY)
-
-    const cards = gridRef.current.querySelectorAll('.task-card-wrapper')
     const newSelected = new Set(initialSelection.current)
     const initialSelected = new Set(initialSelection.current)
 
-    cards.forEach((card) => {
+    gridRef.current.querySelectorAll('.task-card-wrapper').forEach((card) => {
       const rect = card.getBoundingClientRect()
       const taskId = card.getAttribute('data-task-id')
       if (!taskId) return
@@ -104,16 +101,11 @@ export default function TaskGrid() {
       const cardRight = rect.right + window.scrollX
       const cardTop = rect.top + window.scrollY
       const cardBottom = rect.bottom + window.scrollY
-
-      const isIntersecting =
-        minX < cardRight && maxX > cardLeft && minY < cardBottom && maxY > cardTop
+      const isIntersecting = minX < cardRight && maxX > cardLeft && minY < cardBottom && maxY > cardTop
 
       if (isIntersecting) {
-        if (initialSelected.has(taskId)) {
-          newSelected.delete(taskId)
-        } else {
-          newSelected.add(taskId)
-        }
+        if (initialSelected.has(taskId)) newSelected.delete(taskId)
+        else newSelected.add(taskId)
       } else if (!initialSelected.has(taskId)) {
         newSelected.delete(taskId)
       }
@@ -158,31 +150,31 @@ export default function TaskGrid() {
       setSelectionBox(null)
     }
 
-    const getEventElement = (e: MouseEvent) => {
-      if (e.target instanceof Element) return e.target
-      return document.elementFromPoint(e.clientX, e.clientY)
+    const getEventElement = (event: MouseEvent) => {
+      if (event.target instanceof Element) return event.target
+      return document.elementFromPoint(event.clientX, event.clientY)
     }
 
-    const handleDocumentMouseDown = (e: MouseEvent) => {
-      if (e.button !== 0) return
-      const target = getEventElement(e)
+    const handleDocumentMouseDown = (event: MouseEvent) => {
+      if (event.button !== 0) return
+      const target = getEventElement(event)
       if (!target) return
       if (!target.closest('[data-drag-select-surface]')) return
       if (target.closest('[data-input-bar]')) return
       if (target.closest('[data-no-drag-select], [data-lightbox-root]')) return
       if (target.closest('button, a, input, textarea, select')) return
 
-      const isCtrl = isMac ? e.metaKey : e.ctrlKey
-      beginSelection(target as HTMLElement, e.clientX, e.clientY, isCtrl)
-      e.preventDefault()
+      const isCtrl = isMac ? event.metaKey : event.ctrlKey
+      beginSelection(target as HTMLElement, event.clientX, event.clientY, isCtrl)
+      event.preventDefault()
     }
 
-    const handleDocumentMouseMove = (e: MouseEvent) => {
+    const handleDocumentMouseMove = (event: MouseEvent) => {
       if (!isDragging.current || !dragStart.current) return
 
       const start = dragStart.current
-      const point = getPagePoint(e.clientX, e.clientY)
-      lastClientPoint.current = { x: e.clientX, y: e.clientY }
+      const point = getPagePoint(event.clientX, event.clientY)
+      lastClientPoint.current = { x: event.clientX, y: event.clientY }
       const distance = Math.hypot(point.pageX - start.pageX, point.pageY - start.pageY)
       if (distance < 6 && !hasDragged.current) return
 
@@ -194,21 +186,15 @@ export default function TaskGrid() {
         currentPageY: point.pageY,
       })
       updateSelectionFromPoint(point.pageX, point.pageY)
-      e.preventDefault()
+      event.preventDefault()
 
-      const scrollThreshold = 40
-      if (e.clientY < scrollThreshold) {
-        startDragScroll(-1)
-      } else if (e.clientY > window.innerHeight - scrollThreshold) {
-        startDragScroll(1)
-      } else {
-        stopDragScroll()
-      }
+      if (event.clientY < 40) startDragScroll(-1)
+      else if (event.clientY > window.innerHeight - 40) startDragScroll(1)
+      else stopDragScroll()
     }
 
     const handleDocumentScroll = () => {
       if (!isDragging.current || !dragStart.current || !lastClientPoint.current || !hasDragged.current) return
-
       const point = getPagePoint(lastClientPoint.current.x, lastClientPoint.current.y)
       const start = dragStart.current
       setSelectionBox({
@@ -220,105 +206,60 @@ export default function TaskGrid() {
       updateSelectionFromPoint(point.pageX, point.pageY)
     }
 
-    const handleDocumentWheel = (e: WheelEvent) => {
-      if (!isDragging.current) return
-      if ((e.buttons & 1) === 0) {
-        endSelection()
-        return
-      }
-      if (!hasDragged.current) return
-      if (!e.ctrlKey && !e.metaKey) return
-
-      e.preventDefault()
-      const now = Date.now()
-      if (now - lastToastTimeRef.current > 3000) {
-        lastToastTimeRef.current = now
-        const keyName = isMac ? '⌘' : 'Ctrl'
-        useStore.getState().showToast(`松开 ${keyName} 键使用滚轮，或拖至边缘自动滚动`, 'info')
-      }
-    }
-
-    const handleDocumentMouseUp = () => {
-      endSelection(true, true)
-    }
+    const handleDocumentMouseUp = () => endSelection(true, true)
 
     document.addEventListener('mousedown', handleDocumentMouseDown, true)
     document.addEventListener('mousemove', handleDocumentMouseMove, true)
     document.addEventListener('mouseup', handleDocumentMouseUp, true)
-    document.addEventListener('wheel', handleDocumentWheel, { capture: true, passive: false })
     window.addEventListener('scroll', handleDocumentScroll, true)
     return () => {
       stopDragScroll()
       document.removeEventListener('mousedown', handleDocumentMouseDown, true)
       document.removeEventListener('mousemove', handleDocumentMouseMove, true)
       document.removeEventListener('mouseup', handleDocumentMouseUp, true)
-      document.removeEventListener('wheel', handleDocumentWheel, true)
       window.removeEventListener('scroll', handleDocumentScroll, true)
     }
   }, [clearSelection, isMac])
 
   if (!filteredTasks.length) {
     return (
-      <div className="py-16 sm:py-24">
+      <div className="rounded-lg border border-dashed border-gray-200 bg-white/45 px-5 py-12 text-center text-gray-400 dark:border-white/[0.08] dark:bg-white/[0.02] dark:text-gray-500 sm:px-6 sm:py-16">
         {searchQuery || filterFavorite ? (
-          <div className="mx-auto max-w-md rounded-[2rem] border p-10 text-center backdrop-blur-2xl studio-glass">
-            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">没有找到匹配的任务</p>
+          <div>
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-300">没有匹配的任务</p>
+            <p className="mt-1 text-xs">调整搜索词、状态筛选或收藏视图。</p>
           </div>
         ) : (
-          <div className="mx-auto max-w-2xl overflow-hidden rounded-[2rem] border p-8 text-center backdrop-blur-2xl studio-glass sm:p-12">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.75rem] studio-primary-gradient shadow-[0_18px_60px_rgba(124,92,255,0.35)]">
-              <svg
-                className="h-10 w-10 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-black tracking-tight text-slate-950 dark:text-white">Describe an image to begin</h3>
-            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-500 dark:text-slate-400">
-              在下方输入提示词，上传参考图，开始生成你的第一张作品。
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-              <span className="rounded-full border border-slate-900/5 bg-white/60 px-3 py-1.5 dark:border-white/[0.08] dark:bg-white/[0.04]">cinematic portrait</span>
-              <span className="rounded-full border border-slate-900/5 bg-white/60 px-3 py-1.5 dark:border-white/[0.08] dark:bg-white/[0.04]">product render</span>
-              <span className="rounded-full border border-slate-900/5 bg-white/60 px-3 py-1.5 dark:border-white/[0.08] dark:bg-white/[0.04]">anime concept art</span>
-            </div>
-          </div>
+          <>
+            <svg className="mx-auto mb-4 h-12 w-12 text-gray-200 dark:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-300">还没有图像任务</p>
+            <p className="mt-1 text-xs">在底部输入提示词并生成第一张图像。</p>
+          </>
         )}
       </div>
     )
   }
 
   return (
-    <div 
-      ref={rootRef}
-      data-task-grid-root
-      className="relative min-h-[50vh]"
-    >
-      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-10">
+    <div ref={rootRef} data-task-grid-root className="relative min-h-[50vh]">
+      <div ref={gridRef} className="grid grid-cols-1 gap-2.5 pb-10 sm:gap-3 md:grid-cols-2 xl:grid-cols-3">
         {filteredTasks.map((task) => (
           <div key={task.id} className="task-card-wrapper" data-task-id={task.id}>
             <TaskCard
               task={task}
-              onClick={(e) => {
+              onClick={(event) => {
                 if (Date.now() < suppressClickUntil.current) {
-                  e.preventDefault()
+                  event.preventDefault()
                   return
                 }
                 suppressClickUntil.current = 0
-                const isCtrl = isMac ? e.metaKey : e.ctrlKey
+                const isCtrl = isMac ? event.metaKey : event.ctrlKey
                 if (isCtrl) {
                   useStore.getState().toggleTaskSelection(task.id)
                   return
                 }
-
                 setDetailTaskId(task.id)
               }}
               onReuse={() => reuseConfig(task)}
@@ -331,7 +272,7 @@ export default function TaskGrid() {
       </div>
       {selectionBox && (
         <div
-          className="fixed bg-blue-500/20 border border-blue-500/50 pointer-events-none z-[30]"
+          className="fixed z-[30] border border-blue-500/50 bg-blue-500/20 pointer-events-none"
           style={{
             left: Math.min(selectionBox.startPageX, selectionBox.currentPageX) - window.scrollX,
             top: Math.min(selectionBox.startPageY, selectionBox.currentPageY) - window.scrollY,

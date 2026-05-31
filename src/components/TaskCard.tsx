@@ -322,10 +322,10 @@ export default function TaskCard({
   const isInterrupted = task.status === 'error' && task.error === '已停止生成。'
 
   return (
-    <div className="relative rounded-[1.5rem]">
+    <div className="relative rounded-lg">
       {/* 侧滑底图 */}
       <div
-        className={`absolute inset-0 rounded-[1.5rem] flex items-center transition-opacity duration-200 pointer-events-none ${
+        className={`absolute inset-0 rounded-lg flex items-center transition-opacity duration-200 pointer-events-none ${
           isSwiping || swipeDirection !== 0 || swipeActionActive ? 'opacity-100' : 'opacity-0'
         } ${swipeBgClass} ${
           swipeDirection > 0 ? 'justify-start pl-6' : 'justify-end pr-6'
@@ -342,16 +342,16 @@ export default function TaskCard({
 
       <div
         ref={cardRef}
-        className={`relative overflow-hidden rounded-[1.5rem] border bg-white/72 shadow-[0_18px_55px_rgba(15,23,42,0.10)] backdrop-blur-xl cursor-pointer touch-pan-y will-change-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(15,23,42,0.16)] dark:bg-[#0f1422]/78 dark:shadow-[0_22px_70px_rgba(0,0,0,0.32)] dark:hover:bg-[#151b2c]/85 ${
-          isSwiping ? '!bg-white dark:!bg-[#0f1422]' : ''
+        className={`relative overflow-hidden rounded-lg border bg-white/85 cursor-pointer touch-pan-y will-change-transform duration-200 dark:bg-white/[0.035] ${
+          isSwiping ? '!bg-white dark:!bg-gray-900' : ''
         } ${
           !isSwiping ? 'transition-[box-shadow,border-color,background-color,transform]' : 'transition-[box-shadow,border-color,background-color]'
         } ${
           task.status === 'running'
-            ? 'border-violet-400/70 generating studio-focus-ring'
+            ? 'generating border-blue-400/80 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.24)]'
             : isSelected
-            ? 'border-violet-400/80 shadow-[0_0_0_2px_rgba(124,92,255,0.28),0_22px_70px_rgba(124,92,255,0.20)]'
-            : 'border-slate-900/5 hover:border-violet-400/40 dark:border-white/[0.08] dark:hover:border-violet-300/30'
+            ? 'border-blue-500 bg-blue-50/40 ring-2 ring-blue-500/30 dark:bg-blue-500/10'
+            : 'border-gray-200 hover:border-gray-300 hover:bg-white dark:border-white/[0.08] dark:hover:border-white/[0.16] dark:hover:bg-white/[0.055]'
         }`}
         onClick={(e) => {
           if (Date.now() < suppressClickUntilRef.current) {
@@ -393,9 +393,9 @@ export default function TaskCard({
           </svg>
         </div>
       )}
-      <div className="flex h-40">
+      <div className="flex h-32 sm:h-36">
         {/* 左侧图片区域 */}
-        <div className="w-40 min-w-[10rem] h-full bg-gray-100 dark:bg-black/20 relative flex items-center justify-center overflow-hidden flex-shrink-0">
+        <div className="relative flex h-full w-28 min-w-28 flex-shrink-0 items-center justify-center overflow-hidden bg-gray-100 dark:bg-black/30 sm:w-36 sm:min-w-36">
           {task.status === 'running' && streamPreviewSrc && (
             <>
               <img
@@ -531,15 +531,15 @@ export default function TaskCard({
         </div>
 
         {/* 右侧信息区域 */}
-        <div className="flex-1 p-3 flex flex-col min-w-0">
-          <div className="flex-1 min-h-0 mb-2 overflow-hidden">
+        <div className="flex min-w-0 flex-1 flex-col p-2.5 sm:p-3">
+          <div className="mb-2 min-h-0 flex-1 overflow-hidden">
             {showPendingPrompt ? (
               <div className="leading-relaxed">
                 <p className="text-sm text-gray-700 dark:text-gray-300">正在生成……</p>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">输入内容将在响应完成时接收</p>
               </div>
             ) : (
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed line-clamp-3">
+              <p className="line-clamp-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300 sm:line-clamp-3">
                 {task.prompt || '(无提示词)'}
               </p>
             )}

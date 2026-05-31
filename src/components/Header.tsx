@@ -149,21 +149,20 @@ export default function Header() {
 
   return (
     <>
-      <header data-no-drag-select className={`safe-area-top fixed top-0 left-0 right-0 z-40 border-b border-slate-900/5 bg-white/70 shadow-[0_8px_40px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-transform duration-300 ease-in-out dark:border-white/[0.08] dark:bg-[#070a12]/70 dark:shadow-[0_18px_70px_rgba(0,0,0,0.35)] ${appMode === 'agent' && !agentMobileHeaderVisible ? '-translate-y-full sm:translate-y-0' : 'translate-y-0'}`}>
+      <header data-no-drag-select className={`safe-area-top fixed top-0 left-0 right-0 z-40 border-b border-gray-200/80 bg-white/75 backdrop-blur-xl transition-transform duration-300 ease-in-out dark:border-white/[0.08] dark:bg-[#0c0e16]/78 ${appMode === 'agent' && !agentMobileHeaderVisible ? '-translate-y-full sm:translate-y-0' : 'translate-y-0'}`}>
         <div className="safe-area-x safe-header-inner max-w-7xl mx-auto flex items-center justify-between relative">
-          <div className="flex-1 min-w-0 pr-2 flex items-center gap-3">
-            <h1 className="inline-flex min-w-0 items-center relative mr-2">
+          <div className="flex-1 min-w-0 pr-2 flex items-center gap-2">
+            <h1 className="inline-flex min-w-0 items-start relative mr-2">
               {showFavoriteCollectionTitle ? (
                 <>
-                  <span className="min-w-0 truncate text-[17px] font-bold tracking-tight text-slate-900 dark:text-white sm:hidden" title={favoriteCollectionTitle}>{favoriteCollectionTitle}</span>
+                  <span className="min-w-0 truncate text-[17px] font-bold tracking-tight text-gray-800 dark:text-gray-100 sm:hidden" title={favoriteCollectionTitle}>{favoriteCollectionTitle}</span>
                   <a
                     href="https://github.com/CookSleep/gpt_image_playground"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group hidden items-center gap-2 text-lg font-extrabold tracking-tight text-slate-950 transition-colors hover:text-slate-700 dark:text-white dark:hover:text-slate-200 sm:inline-flex"
+                  className="hidden min-w-0 truncate text-lg font-bold tracking-tight text-gray-800 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300 sm:inline"
                   >
-                    <span className="h-8 w-8 rounded-2xl studio-primary-gradient shadow-[0_0_24px_rgba(124,92,255,0.42)]" />
-                    <span>GPT Image Studio</span>
+                    GPT Image Playground
                   </a>
                 </>
               ) : (
@@ -171,10 +170,9 @@ export default function Header() {
                   href="https://github.com/CookSleep/gpt_image_playground"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 text-[17px] font-extrabold tracking-tight text-slate-950 transition-colors hover:text-slate-700 dark:text-white dark:hover:text-slate-200 sm:text-lg"
+                  className="min-w-0 truncate text-[17px] font-bold tracking-tight text-gray-800 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300 sm:text-lg"
                 >
-                  <span className="h-8 w-8 rounded-2xl studio-primary-gradient shadow-[0_0_24px_rgba(124,92,255,0.42)]" />
-                  <span>GPT Image Studio</span>
+                  GPT Image Playground
                 </a>
               )}
               {hasUpdate && latestRelease && (
@@ -195,7 +193,7 @@ export default function Header() {
                 ref={historyButtonRef}
                 type="button"
                 onClick={() => setShowHistoryModal((visible) => !visible)}
-                className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.04] rounded-lg transition-colors"
+                className="p-1.5 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.04] rounded-lg transition-colors"
                 title="历史任务"
               >
                 <HistoryIcon className="w-5 h-5" />
@@ -206,7 +204,7 @@ export default function Header() {
                   setAppMode('agent')
                   createConversation()
                 }}
-                className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.04] rounded-lg transition-colors"
+                className="p-1.5 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/[0.04] rounded-lg transition-colors"
                 title="新对话"
               >
                 <EditIcon className="w-5 h-5" />
@@ -240,18 +238,18 @@ export default function Header() {
               </div>
             </div>
           )}
-          <div className="hidden sm:flex items-center gap-1 rounded-2xl border border-slate-900/5 bg-slate-900/[0.04] p-1 mr-4 shadow-inner dark:border-white/[0.08] dark:bg-white/[0.04]">
+          <div className="mr-4 hidden items-center gap-1 rounded-lg border border-gray-200 bg-gray-100/80 p-1 dark:border-white/[0.08] dark:bg-white/[0.04] sm:flex">
             <button
               type="button"
               onClick={() => setAppMode('gallery')}
-              className={`px-4 py-1.5 rounded-lg text-sm transition-colors ${appMode === 'gallery' ? 'studio-primary-gradient text-white shadow-[0_8px_24px_rgba(124,92,255,0.28)] font-semibold' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'}`}
+              className={`rounded-md px-4 py-1.5 text-sm transition-colors ${appMode === 'gallery' ? 'bg-white font-medium text-gray-900 shadow-sm dark:bg-white/10 dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'}`}
             >
               画廊
             </button>
             <button
               type="button"
               onClick={() => setAppMode('agent')}
-              className={`px-4 py-1.5 rounded-lg text-sm transition-colors ${appMode === 'agent' ? 'studio-primary-gradient text-white shadow-[0_8px_24px_rgba(124,92,255,0.28)] font-semibold' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'}`}
+              className={`rounded-md px-4 py-1.5 text-sm transition-colors ${appMode === 'agent' ? 'bg-white font-medium text-gray-900 shadow-sm dark:bg-white/10 dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'}`}
             >
               Agent
             </button>
@@ -267,10 +265,10 @@ export default function Header() {
                     dismissAllTooltips()
                     handleInstallClick()
                   }}
-                  className="p-2 rounded-xl text-slate-500 transition-colors hover:bg-slate-900/[0.06] hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                  className="rounded-lg p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-2"
                   aria-label="安装为应用"
                 >
-                  <InstallIcon className="w-5 h-5 text-current" />
+                  <InstallIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </button>
                 <ViewportTooltip visible={installTooltip.visible} className="whitespace-nowrap">
                   安装为应用
@@ -286,10 +284,10 @@ export default function Header() {
                   dismissAllTooltips()
                   setShowHelp(true)
                 }}
-                className="p-2 rounded-xl text-slate-500 transition-colors hover:bg-slate-900/[0.06] hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                className="rounded-lg p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-2"
                 aria-label="操作指南"
               >
-                <HelpCircleIcon className="w-5 h-5 text-current" />
+                <HelpCircleIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               </button>
               <ViewportTooltip visible={helpTooltip.visible} className="whitespace-nowrap">
                 操作指南
@@ -301,10 +299,10 @@ export default function Header() {
             >
               <button
                 onClick={() => setShowSettings(true)}
-                className="p-2 rounded-xl text-slate-500 transition-colors hover:bg-slate-900/[0.06] hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                className="rounded-lg p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900 sm:p-2"
                 aria-label="设置"
               >
-                <SettingsIcon className="w-5 h-5 text-current" />
+                <SettingsIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               </button>
               <ViewportTooltip visible={settingsTooltip.visible} className="whitespace-nowrap">
                 设置
@@ -313,18 +311,18 @@ export default function Header() {
           </div>
         </div>
         <div className={`safe-area-x sm:hidden overflow-hidden transition-all duration-300 ease-in-out ${appMode === 'gallery' && scrollDirection === 'down' ? 'max-h-0 opacity-0 pb-0' : 'max-h-20 opacity-100 pb-2'}`}>
-          <div className="grid grid-cols-2 gap-1 rounded-2xl border border-slate-900/5 bg-slate-900/[0.04] p-1 mx-2 shadow-inner dark:border-white/[0.08] dark:bg-white/[0.04]">
+          <div className="mx-2 grid grid-cols-2 gap-1 rounded-lg border border-gray-200 bg-gray-100/70 p-1 dark:border-white/[0.08] dark:bg-white/[0.04]">
             <button
               type="button"
               onClick={() => setAppMode('gallery')}
-              className={`px-4 py-1.5 rounded-lg text-sm transition-colors ${appMode === 'gallery' ? 'studio-primary-gradient text-white shadow-[0_8px_24px_rgba(124,92,255,0.28)] font-semibold' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'}`}
+              className={`rounded-md px-4 py-1.5 text-sm transition-colors ${appMode === 'gallery' ? 'bg-white font-medium text-gray-900 shadow-sm dark:bg-white/10 dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'}`}
             >
               画廊
             </button>
             <button
               type="button"
               onClick={() => setAppMode('agent')}
-              className={`px-4 py-1.5 rounded-lg text-sm transition-colors ${appMode === 'agent' ? 'studio-primary-gradient text-white shadow-[0_8px_24px_rgba(124,92,255,0.28)] font-semibold' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'}`}
+              className={`rounded-md px-4 py-1.5 text-sm transition-colors ${appMode === 'agent' ? 'bg-white font-medium text-gray-900 shadow-sm dark:bg-white/10 dark:text-white' : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200'}`}
             >
               Agent
             </button>

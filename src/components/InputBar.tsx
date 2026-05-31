@@ -2146,10 +2146,10 @@ export default function InputBar() {
         />
       )}
 
-      <div data-input-bar className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-4xl px-3 sm:px-4 transition-all duration-300">
+      <div data-input-bar className="fixed bottom-2 left-1/2 z-30 w-full max-w-5xl -translate-x-1/2 px-3 pb-[env(safe-area-inset-bottom,0px)] transition-all duration-300 sm:bottom-5 sm:px-4">
         {showFavoriteCollectionBatchBar && (
           <div className="flex justify-center mb-3">
-            <div className="rounded-full border border-slate-900/5 bg-white/80 p-1 shadow-[0_16px_50px_rgba(15,23,42,0.16)] backdrop-blur-2xl pointer-events-auto dark:border-white/[0.08] dark:bg-[#0f1422]/85 dark:shadow-[0_18px_70px_rgba(0,0,0,0.35)] flex items-center">
+            <div className="pointer-events-auto flex items-center rounded-lg border border-gray-200/70 bg-white/90 p-1 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/90">
               <BatchActionButton
                 onClick={clearFavoriteCollectionSelection}
                 className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -2205,7 +2205,7 @@ export default function InputBar() {
         )}
         {showTaskBatchBar && (
           <div className="flex justify-center mb-3">
-            <div className="rounded-full border border-slate-900/5 bg-white/80 p-1 shadow-[0_16px_50px_rgba(15,23,42,0.16)] backdrop-blur-2xl pointer-events-auto dark:border-white/[0.08] dark:bg-[#0f1422]/85 dark:shadow-[0_18px_70px_rgba(0,0,0,0.35)] flex items-center">
+            <div className="pointer-events-auto flex items-center rounded-lg border border-gray-200/70 bg-white/90 p-1 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/90">
               <BatchActionButton
                 onClick={clearSelection}
                 className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -2275,7 +2275,7 @@ export default function InputBar() {
             </div>
           </div>
         )}
-        <div ref={cardRef} className="rounded-[1.75rem] border p-3 backdrop-blur-2xl ring-1 ring-white/40 studio-glass sm:rounded-[2rem] sm:p-4 dark:ring-white/[0.06]">
+        <div ref={cardRef} className="rounded-lg border border-gray-200/80 bg-white/90 p-3 shadow-[0_12px_36px_rgba(15,23,42,0.14)] ring-1 ring-black/5 backdrop-blur-2xl dark:border-white/[0.1] dark:bg-gray-900/90 dark:shadow-[0_16px_44px_rgba(0,0,0,0.35)] dark:ring-white/[0.06] sm:rounded-xl sm:p-4">
           {/* 移动端拖动条 */}
           <div
             ref={handleRef}
@@ -2314,7 +2314,7 @@ export default function InputBar() {
           {/* 输入框 */}
           <div className="relative grid">
             {showAtImageMenu && (
-              <div style={{ left: `${menuLeft}px` }} className="absolute bottom-full z-50 mb-2 w-64 overflow-hidden rounded-2xl border border-gray-200/70 bg-white/95 p-1.5 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-white/[0.08] dark:bg-gray-900/95 dark:ring-white/10">
+              <div style={{ left: `${menuLeft}px` }} className="absolute bottom-full z-50 mb-2 w-64 overflow-hidden rounded-lg border border-gray-200/70 bg-white/95 p-1.5 shadow-xl ring-1 ring-black/5 backdrop-blur-xl dark:border-white/[0.08] dark:bg-gray-900/95 dark:ring-white/10">
                 <div className="px-2 pb-1 pt-0.5 text-[11px] text-gray-400 dark:text-gray-500">选择图片引用</div>
                 <div className="max-h-56 overflow-y-auto custom-scrollbar">
                   {atImageOptions.map((option, optionIndex) => (
@@ -2385,7 +2385,7 @@ export default function InputBar() {
                 syncMentionTagSelection(el)
               }}
               aria-label={promptPlaceholder}
-              className="col-start-1 row-start-1 min-h-[42px] w-full overflow-hidden ios-rounded-scroll-fix whitespace-pre-wrap break-words rounded-2xl border border-slate-900/5 bg-white/60 pl-4 pr-10 py-3 text-sm leading-relaxed text-slate-900 shadow-inner outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-violet-400 focus:bg-white/80 focus:ring-2 focus:ring-violet-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white dark:focus:border-violet-400/70 dark:focus:bg-white/[0.06] dark:focus:ring-violet-500/20"
+              className="col-start-1 row-start-1 min-h-[42px] w-full overflow-hidden ios-rounded-scroll-fix whitespace-pre-wrap break-words rounded-lg border border-gray-200/70 bg-white/70 pl-4 pr-10 py-3 text-sm leading-relaxed shadow-sm outline-none transition-[border-color,box-shadow] duration-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-300/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-gray-100 dark:focus:ring-blue-500/30"
             />
             {prompt.length === 0 && (
               <div className={`prompt-placeholder col-start-1 row-start-1 pointer-events-none pl-4 pr-10 py-3 text-sm leading-relaxed text-gray-400 dark:text-gray-500${
@@ -2426,7 +2426,7 @@ export default function InputBar() {
                     className={`p-2.5 rounded-xl transition-all shadow-sm ${
                       atImageLimit
                         ? 'bg-gray-200 dark:bg-white/[0.04] text-gray-300 dark:text-gray-500 cursor-not-allowed'
-                        : 'border border-slate-900/5 bg-white/60 text-slate-500 hover:bg-white/80 hover:text-slate-900 hover:shadow dark:border-white/[0.08] dark:bg-white/[0.05] dark:text-slate-300 dark:hover:bg-white/[0.1] dark:hover:text-white'
+                        : 'bg-gray-200 dark:bg-white/[0.06] hover:bg-gray-300 dark:hover:bg-white/[0.1] text-gray-500 dark:text-gray-300 hover:shadow'
                     }`}
                     aria-label={uploadImageTooltipText}
                   >
@@ -2449,7 +2449,7 @@ export default function InputBar() {
                         ? 'bg-red-500 text-white hover:bg-red-600'
                         : !hasSubmitApiConfig
                         ? 'bg-gray-300 dark:bg-white/[0.06] text-white cursor-pointer'
-                        : 'studio-primary-gradient text-white shadow-[0_12px_35px_rgba(124,92,255,0.32)] hover:shadow-[0_16px_45px_rgba(56,189,248,0.28)] disabled:bg-gray-300 disabled:shadow-none dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
+                        : 'bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
                     }`}
                     aria-label={submitButtonAriaLabel}
                   >
@@ -2488,7 +2488,7 @@ export default function InputBar() {
                         setShowMobileUploadMenu(!showMobileUploadMenu)
                       }
                     }}
-                    className={`p-2.5 rounded-xl transition-all shadow-sm flex-shrink-0 ${
+                    className={`flex-shrink-0 rounded-lg p-2.5 shadow-sm transition-all ${
                       atImageLimit
                         ? 'bg-gray-200 dark:bg-white/[0.04] text-gray-300 dark:text-gray-500 cursor-not-allowed'
                         : 'bg-gray-200 dark:bg-white/[0.06] hover:bg-gray-300 dark:hover:bg-white/[0.1] text-gray-500 dark:text-gray-300'
@@ -2512,7 +2512,7 @@ export default function InputBar() {
                         className="fixed inset-0 z-40"
                         onClick={() => setShowMobileUploadMenu(false)}
                       />
-                      <div className="absolute bottom-full left-0 mb-2 w-32 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden z-50 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                      <div className="absolute bottom-full left-0 z-50 mb-2 w-32 overflow-hidden rounded-lg border border-gray-100 bg-white shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-200 dark:border-gray-700 dark:bg-gray-800">
                         <button
                           className="w-full px-4 py-3 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 flex items-center gap-2 transition-colors"
                           onClick={() => {
@@ -2552,12 +2552,12 @@ export default function InputBar() {
                     onClick={() => activeAgentIsRunning ? stopActiveAgentResponse() : hasSubmitApiConfig ? submitCurrentMode() : setShowSettings(true)}
                     disabled={activeAgentIsRunning ? false : hasSubmitApiConfig ? !canSubmit : false}
                     aria-label={submitButtonAriaLabel}
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm ${
+                    className={`flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium shadow-sm transition-all ${
                       activeAgentIsRunning
                         ? 'bg-red-500 text-white hover:bg-red-600'
                         : !hasSubmitApiConfig
                         ? 'bg-gray-300 dark:bg-white/[0.06] text-white cursor-pointer'
-                        : 'studio-primary-gradient text-white shadow-[0_12px_35px_rgba(124,92,255,0.32)] hover:shadow-[0_16px_45px_rgba(56,189,248,0.28)] disabled:bg-gray-300 disabled:shadow-none dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
+                        : 'bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 dark:disabled:bg-white/[0.04] disabled:opacity-50 disabled:cursor-not-allowed'
                     }`}
                   >
                     {activeAgentIsRunning ? (
