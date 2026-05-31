@@ -157,22 +157,22 @@ export default function Header() {
                 <>
                   <span className="min-w-0 truncate text-[17px] font-bold tracking-tight text-gray-800 dark:text-gray-100 sm:hidden" title={favoriteCollectionTitle}>{favoriteCollectionTitle}</span>
                   <a
-                    href="https://github.com/CookSleep/gpt_image_playground"
+                    href="https://github.com/Su-cyber-art/gpt_image_playground"
                     target="_blank"
                     rel="noopener noreferrer"
                   className="hidden min-w-0 truncate text-lg font-bold tracking-tight text-gray-800 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300 sm:inline"
                   >
-                    GPT Image Playground
+                    CHATGPT IMAGE GENERATOR
                   </a>
                 </>
               ) : (
                 <a
-                  href="https://github.com/CookSleep/gpt_image_playground"
+                  href="https://github.com/Su-cyber-art/gpt_image_playground"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="min-w-0 truncate text-[17px] font-bold tracking-tight text-gray-800 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300 sm:text-lg"
                 >
-                  GPT Image Playground
+                  CHATGPT IMAGE GENERATOR
                 </a>
               )}
               {hasUpdate && latestRelease && (

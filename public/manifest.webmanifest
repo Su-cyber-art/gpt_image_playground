@@ -1,7 +1,7 @@
 {
-  "name": "GPT Image Playground",
+  "name": "CHATGPT IMAGE GENERATOR",
   "short_name": "GPT Image",
-  "description": "GPT Image Playground 图像生成工作台",
+  "description": "CHATGPT IMAGE GENERATOR 图像生成工作台",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
