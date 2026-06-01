@@ -532,14 +532,23 @@ export default function TaskCard({
 
         {/* 右侧信息区域 */}
         <div className="flex min-w-0 flex-1 flex-col p-2.5 sm:p-3">
-          <div className="mb-2 min-h-0 flex-1 overflow-hidden">
+          <div
+            data-card-prompt-scroll-area
+            className="mb-2 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 custom-scrollbar"
+            onClick={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            onTouchEnd={(e) => e.stopPropagation()}
+            onTouchCancel={(e) => e.stopPropagation()}
+          >
             {showPendingPrompt ? (
               <div className="leading-relaxed">
                 <p className="text-sm text-gray-700 dark:text-gray-300">正在生成……</p>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">输入内容将在响应完成时接收</p>
               </div>
             ) : (
-              <p className="line-clamp-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300 sm:line-clamp-3">
+              <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words">
                 {task.prompt || '(无提示词)'}
               </p>
             )}
